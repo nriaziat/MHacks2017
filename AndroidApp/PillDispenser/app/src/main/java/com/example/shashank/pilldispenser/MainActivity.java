@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.cognito.CognitoSyncManager;
@@ -20,6 +21,7 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitosync.*;
 import com.amazonaws.mobileconnectors.cognito.Dataset;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity
     private CognitoCachingCredentialsProvider credentialsProvider;
     private CognitoSyncManager syncClient;
     private Dataset dataset;
+    private Calendar calendar;
 
 
     @Override
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
+        calendar = Calendar.getInstance();
 
         amazonCogInit();
 
@@ -72,7 +76,6 @@ public class MainActivity extends AppCompatActivity
                 Regions.US_WEST_2 // Region
         );
 
-
         // Initialize the Cognito Sync client
         CognitoSyncManager syncClient = new CognitoSyncManager(
                 getApplicationContext(),
@@ -88,9 +91,63 @@ public class MainActivity extends AppCompatActivity
                 //Your handler code here
             }
         });
+    }
 
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
 
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.checkBox:
+                if (checked) {
 
+                }
+                else {
+
+                }
+                break;
+            case R.id. checkBox2:
+                if (checked) {
+
+                }
+                else {
+
+                }
+                break;
+            case R.id.checkBox3:
+                if (checked) {
+
+                }
+                else {
+
+                }
+                break;
+            case R.id. checkBox4:
+                if (checked) {
+
+                }
+                else {
+
+                }
+                break;
+            case R.id.checkBox5:
+                if (checked) {
+
+                }
+                else {
+
+                }
+                break;
+            case R.id. checkBox6:
+                if (checked) {
+
+                }
+                else {
+
+                }
+                break;
+        }
     }
 
 
