@@ -11,7 +11,7 @@ client = TwilioRestClient(account_sid, auth_token)
 prevResponseQuantity = ""
 dataQuantity = "0"
 
-    
+
 while True:
     while prevResponse == '':
         try:
@@ -26,7 +26,7 @@ while True:
         else:
             data = response.read()
             response.close()
-                        
+
             if data != prevResponse:
                 response = urllib2.urlopen('https://s3.amazonaws.com/trigfile/pattern')
                 pattern = response.read()
