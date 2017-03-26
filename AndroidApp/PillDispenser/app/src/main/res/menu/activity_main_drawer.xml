@@ -4,18 +4,18 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/add"
+            android:id="@+id/schedule"
             android:enabled="true"
+            android:icon="@android:drawable/ic_menu_my_calendar"
+            android:title="Schedule" />
+        <item
+            android:id="@+id/add"
             android:icon="@android:drawable/ic_input_add"
             android:title="Add Pill" />
         <item
             android:id="@+id/removePill"
-            android:icon="@android:drawable/ic_input_delete"
+            android:icon="@android:drawable/ic_delete"
             android:title="Remove Pill" />
-        <item
-            android:id="@+id/schedule"
-            android:icon="@android:drawable/ic_menu_my_calendar"
-            android:title="Schedule" />
         <item
             android:id="@+id/settings"
             android:icon="@drawable/ic_menu_manage"
