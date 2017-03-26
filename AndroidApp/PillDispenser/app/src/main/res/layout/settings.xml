@@ -15,7 +15,8 @@
             android:layout_centerHorizontal="true"
             android:ems="10"
             android:hint="type your name"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/button2"
