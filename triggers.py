@@ -2,11 +2,20 @@ import serial
 import urllib2
 from twilio.rest import TwilioRestClient
 
-ser = serial.Serial('/dev/ttyACM1', 9600)
+ser = 0
+while ser == 0:
+    try:
+        ser = serial.Serial('/dev/ttyACM1', 9600)
+    except serial.serialutil.SerialException:
+        try:
+            ser = serial.Serial('/dev/ttyACM0', 9600)
+        except serial.serialutil.SerialException:
+            pass
+print ("Serial Connected")
 prevResponse = ''
 ser.write('0')
-account_sid = "ACd2452950046c0b6a89c8c455019e9754"
-auth_token = "0e6d95210e01bc0e3590afb558460bdd"
+account_sid = ""
+auth_token = ""
 client = TwilioRestClient(account_sid, auth_token)
 prevResponseQuantity = ""
 prevResponsePattern = ''
@@ -16,7 +25,9 @@ dataQuantity = "0"
 while True:
     while prevResponse == '':
         try:
-            prevResponse = urllib2.urlopen('https://s3.amazonaws.com/trigfile/triggered')
+            response = urllib2.urlopen('https://s3.amazonaws.com/trigfile/triggered')
+            prevResponse = response.read()
+            response.close()
         except urllib2.URLError:
             pass
     else:
@@ -33,6 +44,7 @@ while True:
                 pattern = response.read()
                 response.close()
                 ser.write("0" + pattern)
+                print pattern
                 prevResponse = data
     # Download the library from twilio.com/docs/libraries
 
