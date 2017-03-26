@@ -19,7 +19,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.view.View.OnClickListener;
+import android.widget.EditText;
+import android.widget.TimePicker;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.cognito.CognitoSyncManager;
@@ -28,11 +32,12 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitosync.*;
 import com.amazonaws.mobileconnectors.cognito.Dataset;
 
+import java.sql.Time;
 import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnClickListener {
 
     private Toolbar toolbar;
     private CognitoCachingCredentialsProvider credentialsProvider;
@@ -40,6 +45,7 @@ public class MainActivity extends AppCompatActivity
     private Dataset dataset;
     private Calendar calendar;
     private UserInfo user;
+    private Button b1, b2, b3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +57,14 @@ public class MainActivity extends AppCompatActivity
         }
 
         calendar = Calendar.getInstance();
+
+        b1 = (Button)findViewById(R.id.button);
+        b1.setOnClickListener(this);
+        b2 = (Button)findViewById(R.id.button2);
+        b2.setOnClickListener(this);
+        b3 = (Button)findViewById(R.id.button3);
+        b3.setOnClickListener(this);
+
 
         //amazonCogInit();
 
@@ -64,6 +78,75 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case  R.id.button: { //Add button: Add Pill action
+                boolean[] days = new boolean[7];
+                boolean meals = false;
+
+                CheckBox check1 = (CheckBox) findViewById(R.id.checkBox);
+                CheckBox check2 = (CheckBox) findViewById(R.id.checkBox2);
+                CheckBox check3 = (CheckBox) findViewById(R.id.checkBox3);
+                CheckBox check4 = (CheckBox) findViewById(R.id.checkBox4);
+                CheckBox check5 = (CheckBox) findViewById(R.id.checkBox5);
+                CheckBox check6 = (CheckBox) findViewById(R.id.checkBox6);
+                CheckBox check7 = (CheckBox) findViewById(R.id.checkBox7);
+                CheckBox check8 = (CheckBox) findViewById(R.id.checkBox8);
+
+                if (check1.isChecked()) {
+                    days[0] = true;
+                }
+                if (check2.isChecked()) {
+                    days[1] = true;
+                }
+                if (check3.isChecked()) {
+                    days[2] = true;
+                }
+                if (check4.isChecked()) {
+                    days[3] = true;
+                }
+                if (check5.isChecked()) {
+                    days[4] = true;
+                }
+                if (check6.isChecked()) {
+                    days[5] = true;
+                }
+                if (check7.isChecked()) {
+                    days[6] = true;
+                }
+                if (check8.isChecked()) {
+                    meals = true;
+                }
+
+                EditText pillName = (EditText)findViewById(R.id.editText10);
+                String pillNameS = pillName.getText().toString();
+
+                EditText trayNum = (EditText)findViewById(R.id.editText11);
+                int trayNumInt = Integer.parseInt(pillName.getText().toString());
+
+                EditText pillIntake = (EditText)findViewById(R.id.editText12);
+                int pillIntakeInt = Integer.parseInt(pillName.getText().toString());
+
+                TimePicker time = (TimePicker) findViewById(R.id.timePicker);
+                int minutes = time.getHour() + time.getMinute();
+
+                user.addPill(pillNameS,);
+                break;
+            }
+
+            case R.id.button2: { //Remove button
+
+                break;
+            }
+            case R.id.button3: { //Settings button
+
+                break;
+            }
+        }
+    }
+
 
     /*private void amazonCogInit() {
 
@@ -169,6 +252,8 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
