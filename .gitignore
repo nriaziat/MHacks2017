@@ -2,3 +2,5 @@ appDirty.py
 zappa_settings.json
 triggered.txt
 venv
+alexa
+triggeredIgnore.py
