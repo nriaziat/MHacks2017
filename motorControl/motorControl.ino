@@ -46,20 +46,20 @@ void recvInfo(){
 void motorFunction(int x){
   switch (x){
     case 49: 
-      myMotor->step(100, FORWARD, DOUBLE); 
-      myMotor->step(100, BACKWARD, DOUBLE);
+      myMotor->step((200/1.8)*(90), FORWARD, DOUBLE); 
+      myMotor->step((200/1.8)*(90), BACKWARD, DOUBLE);
       break;
     case 50:
-      myMotor->step(200, FORWARD, DOUBLE); 
-      myMotor->step(200, BACKWARD, DOUBLE);
+      myMotor->step((200/1.8)*(90+51.5), FORWARD, DOUBLE); 
+      myMotor->step((200/1.8)*(90+51.5), BACKWARD, DOUBLE);
       break;
     case 51:
-      myMotor->step(300, FORWARD, DOUBLE); 
-      myMotor->step(300, BACKWARD, DOUBLE);
+      myMotor->step((200/1.8)*(90+51.5*2), FORWARD, DOUBLE); 
+      myMotor->step((200/1.8)*(90+51.5*2), BACKWARD, DOUBLE);
       break;
     case 52:
-      myMotor->step(400, FORWARD, SINGLE); 
-      myMotor->step(400, BACKWARD, SINGLE);
+      myMotor->step((200/1.8)*(90+51.5*3), FORWARD, SINGLE); 
+      myMotor->step((200/1.8)*(90+51.5*3), BACKWARD, SINGLE);
       break;
   }
 }
