@@ -16,6 +16,7 @@ bucket_name = 'trigfile'
 
 @ask.intent("TRIGGER")
 def upload():
+    bucket_name = 'trigfile'
     conn = boto.connect_s3(AWS_ACCESS_KEY, AWS_SECRET_KEY)
 
     bucket = conn.get_bucket(bucket_name)
@@ -26,6 +27,20 @@ def upload():
     k.set_contents_from_string('{:%m%d%Y%H%M%S}'.format(datetime.datetime.now()))
 
     return statement('Dispensing!')
+
+@ask.intent("QUANTITY")
+def qty():
+    conn = boto.connect_s3(AWS_ACCESS_KEY, AWS_SECRET_KEY)
+
+    bucket = conn.get_bucket(bucket_name)
+
+    testfile = 'triggered'
+    k = Key(bucket)
+    k.key = testfile
+    k.set_contents_from_string('{:%m%d%Y%H%M%S}'.format(datetime.datetime.now()))
+
+    return statement('Dispensing!')
+    
 
 if __name__ == '__main__':
     app.run()

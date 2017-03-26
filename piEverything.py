@@ -8,7 +8,7 @@ ser.write('0')
 account_sid = "ACd2452950046c0b6a89c8c455019e9754"
 auth_token = "0e6d95210e01bc0e3590afb558460bdd"
 client = TwilioRestClient(account_sid, auth_token)
-prevResponseQuantity = "";
+prevResponseQuantity = ""
 dataQuantity = "0"
 
     
@@ -37,21 +37,26 @@ while True:
 
 # Get these credentials from http://twilio.com/user/account
     # Make the call
-        if(prevResponseQuantity != dataQuanity):
-            try:
-                responseQuanity = urllib2.urlopen('https://s3.amazonaws.com/trigfile/quantity')
-            except urllib2.URLError:
-                pass
-            else:   
-                dataQuantity = responseQuantity.read()
-                responseQuanity.close()
+        try:
+            responseQuantity = urllib2.urlopen('https://s3.amazonaws.com/trigfile/quantity')
+        except urllib2.URLError:
+            pass
+        else:
+            count = 0
+            dataQuantity = responseQuantity.read()
+            responseQuantity.close()
+            if(prevResponseQuantity != dataQuantity):
                 string = ""
                 for i in range(1, 5):
                     findThis= "Tray"+str(i)
                     place = dataQuantity.find(findThis)
-                    if int(dataQuantity[place+6] <=3):
-                        if i == 1:
-                            string += "?Tray1=Tray1"
+                    if int(dataQuantity[place+6]) <= 3:
+                        if count == 0:
+                            string += "?Tray"
+                            string += str(i)
+                            string += "=Tray"
+                            string += str(i)
+                            count = 1;
                         else:
                             string += "&Tray"
                             string += str(i)
@@ -61,7 +66,7 @@ while True:
                 call = client.calls.create(to="+15109363524",  # Any phone number
                                from_="+15104910043", # Must be a valid Twilio number
                                url="https://handler.twilio.com/twiml/EH6fbc3c785b3d84e49c7d495bb42299ba"+string)
-                print(call.sid)
+                #print(call.sid)
 
                 prevResponseQuantity = dataQuantity
 
