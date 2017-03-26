@@ -11,15 +11,15 @@ Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 // to motor port #2 (M3 and M4)
 Adafruit_StepperMotor *myMotor = AFMS.getStepper(200, 1);
 
-char receivedChar;
+String receivedChar;
 boolean newData = 0;
-char oldChar;
+String oldChar;
 int led = 13;
 
 void setup(){
   Serial.begin(9600);
   AFMS.begin();
-  myMotor->setSpeed(80); 
+  myMotor->setSpeed(300); 
 }
 
 void loop(){
@@ -28,17 +28,39 @@ void loop(){
   
   
 void recvInfo(){
-  if (1){
-    receivedChar = Serial.read();
-    int val = receivedChar - '0';
-    if (val == 1){
-      motorFunction();
+  char x = 'c';
+  int i = 0;
+  if (Serial.read() > 0){
+    receivedChar = Serial.readString();
+    Serial.println(receivedChar);
+    while (x != '\0'){
+       x = receivedChar[i];
+       Serial.println(x);
+       motorFunction(x);
+       i++;
+       
     }
   }
 }
 
-void motorFunction(){
-  myMotor->step(400, FORWARD, SINGLE); 
-  myMotor->step(400, BACKWARD, SINGLE);
+void motorFunction(int x){
+  switch (x){
+    case 49: 
+      myMotor->step(100, FORWARD, DOUBLE); 
+      myMotor->step(100, BACKWARD, DOUBLE);
+      break;
+    case 50:
+      myMotor->step(200, FORWARD, DOUBLE); 
+      myMotor->step(200, BACKWARD, DOUBLE);
+      break;
+    case 51:
+      myMotor->step(300, FORWARD, DOUBLE); 
+      myMotor->step(300, BACKWARD, DOUBLE);
+      break;
+    case 52:
+      myMotor->step(400, FORWARD, SINGLE); 
+      myMotor->step(400, BACKWARD, SINGLE);
+      break;
+  }
 }
 
