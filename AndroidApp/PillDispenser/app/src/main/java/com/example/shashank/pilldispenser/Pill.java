@@ -16,7 +16,8 @@ public class Pill {
     private int output; //How many to dispense
     private boolean meal;
     private int trayNum;
-    private int[] minutes = new int[TIME_RANGES]; // Times to dispense in 10 min ranges [Ranges 0-143, corresponding to 00:00 to 24:00]
+    private int[] minutes; // Times to dispense in 10 min ranges [Ranges 0-143, corresponding to 00:00 to 24:00]
+    private int minIndex;
     private boolean[] days = new boolean[NUM_DAYS_IN_WEEK]; // 0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday
 
 
@@ -35,8 +36,9 @@ public class Pill {
         this.output = dispense;
     }
 
-    public void setMinutes(int[] times) {
-        this.minutes = times;
+    public void setMinutes(int time) {
+        this.minutes[minIndex] = time;
+        this.minIndex++;
     }
 
     public void setTrayNum(int num) {this.trayNum = num;}
@@ -73,8 +75,12 @@ public class Pill {
 
     public boolean[] getDays() {return this.days;}
 
+    public int getTrayNum() {return this.trayNum;}
 
+    public int getMinIndex() {return this.minIndex;}
 
     ////////////////Other Functions///////////////////////////////////////////////////////////////
     public void takePill() {this.quantity -= this.output;}
+
+    public void addPills(int added) {this.quantity += added;}
 }

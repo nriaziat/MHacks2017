@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity
     private CognitoSyncManager syncClient;
     private Dataset dataset;
     private Calendar calendar;
-
+    private UserInfo user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,12 +91,14 @@ public class MainActivity extends AppCompatActivity
         });
     }*/
 
-    /*public void onCheckboxClicked(View view) {
+    public void onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
 
         // Check which checkbox was clicked
         switch(view.getId()) {
+            //Checkboxes in Add
+
             case R.id.checkBox:
                 if (checked) {
 
@@ -146,7 +148,7 @@ public class MainActivity extends AppCompatActivity
                 }
                 break;
         }
-    }*/
+    }
 
 
 
